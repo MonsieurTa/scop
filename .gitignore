@@ -1,2 +1,8 @@
 *.o
 scop
+obj/
+build/
+dep/
+.DS_Store
+.vscode/
+test_tga
