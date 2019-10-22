@@ -6,13 +6,15 @@
 #    By: william <william@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/07/28 20:09:26 by wta               #+#    #+#              #
-#    Updated: 2019/10/22 14:20:20 by william          ###   ########.fr        #
+#    Updated: 2019/10/22 16:02:47 by william          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = scop
-CFLAGS = -Wall -Wextra -Werror #-g3 -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror $(LOPENGL) #-g3 -fsanitize=address
 CC = cc -O2
+
+LGL = -lglut -lGLU -lGL -lm
 
 CURR_PATH = $(shell pwd)
 
@@ -69,10 +71,10 @@ $(LFT):
 	$(MAKE) -j10 -C libft
 
 $(NAME): $(LFT) $(LSDL2) $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) -L $(LFT_DIR) -lft -L $(DEPS_DIR)/lib -l$(SDL2) -o $@
+	$(CC) $(CFLAGS) $(OBJS) $(LGL) -L $(LFT_DIR) -lft -L $(DEPS_DIR)/lib -l$(SDL2) -o $@
 
 $(OBJ_DIR)/%.o: $(SRCS_DIR)/%.c $(INC_DIR)/$(HEADERS) | $(OBJ_DIR)
-	$(CC) $(CFLAGS) -I $(INC_DIR) -I $(LFT_DIR)/$(INC_DIR) -I $(BUILD_DIR)/$(INC_DIR)/$(SDL2) -c -o $@ $<
+	$(CC) $(CFLAGS) -I $(INC_DIR) -I $(LFT_DIR)/$(INC_DIR) -I $(BUILD_DIR)/$(INC_DIR)/$(SDL2) -I /usr/include/GL -c -o $@ $<
 
 $(DIRS):
 	mkdir -p $@
