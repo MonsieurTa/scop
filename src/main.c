@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: william <william@student.42.fr>            +#+  +:+       +#+        */
+/*   By: wta <wta@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/21 15:42:10 by wta               #+#    #+#             */
-/*   Updated: 2019/10/22 16:20:09 by william          ###   ########.fr       */
+/*   Updated: 2019/10/23 11:39:41 by wta              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <GL/glut.h>
 #include "SDL.h"
 #include "libft.h"
+#include "scop.h"
 
 int	main(void)
 {

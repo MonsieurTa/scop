@@ -3,43 +3,62 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: william <william@student.42.fr>            +#+  +:+       +#+         #
+#    By: wta <wta@student.42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/07/28 20:09:26 by wta               #+#    #+#              #
-#    Updated: 2019/10/22 16:02:47 by william          ###   ########.fr        #
+#    Updated: 2019/10/23 18:41:28 by wta              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = scop
-CFLAGS = -Wall -Wextra -Werror $(LOPENGL) #-g3 -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror# -g3 -fsanitize=address
 CC = cc -O2
 
-LGL = -lglut -lGLU -lGL -lm
+UNAME_S := $(shell uname -s)
+
+ifeq ($(UNAME_S), Linux)
+	LGL := -lglut -lGLU -lGL -lm
+	LGL_INC := /usr/include/GL
+else ifeq ($(UNAME_S), Darwin)
+	LGL := -framework OpenGL -framework AppKit
+	# LGL_INC := /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk/System/Library/Frameworks/OpenGL.framework/Headers
+	LGL_INC := ~/.brew/include
+	CFLAGS += -Wno-deprecated-declarations
+endif
 
 CURR_PATH = $(shell pwd)
 
 INC_DIR = include
-SRCS_DIR =	src
+SRC_DIR = src
 
-LFT_DIR = libft
+LIB_DIR = lib
+
+LFT_DIR = $(LIB_DIR)/libft
 LFT = $(LFT_DIR)/libft.a
+LFT_INC = $(LFT_DIR)/$(INC_DIR)
 
 OBJ_DIR = obj
-DEPS_DIR = dep
-BUILD_DIR = build
+_OBJ_DIR =				\
+	$(OBJ_DIR)			\
+	$(OBJ_DIR)/error	\
+	$(OBJ_DIR)/sdl
+
+DEPS_DIR = $(LIB_DIR)/dep
+BUILD_DIR = $(LIB_DIR)/build
 
 DEPS_PATH = $(addprefix $(CURR_PATH)/, $(DEPS_DIR))
 BUILD_PATH = $(addprefix $(CURR_PATH)/, $(BUILD_DIR))
 
 SDL2 = SDL2
 LSDL2 = $(DEPS_DIR)/lib/libSDL2.a
+LSDL2_INC = $(BUILD_DIR)/$(INC_DIR)/$(SDL2)
 
 LSDL2_DIR = 		\
 	$(DEPS_DIR)		\
 	$(BUILD_DIR)
 
 DIRS =				\
-	$(OBJ_DIR)		\
+	$(_OBJ_DIR)		\
 	$(LSDL2_DIR)
 
 SDL_OPTION =							\
@@ -51,12 +70,17 @@ SDL_OPTION =							\
 	--datarootdir=$(BUILD_PATH)/data
 
 HEADERS =			\
+error.h				\
 scop.h
 
-SRCS =				\
+SRC =				\
+error/error.c		\
+sdl/event.c			\
+sdl/init.c			\
+sdl/quit.c			\
 main.c
 
-OBJS = $(addprefix $(OBJ_DIR)/, $(SRCS:.c=.o))
+OBJ = $(addprefix $(OBJ_DIR)/, $(SRC:.c=.o))
 
 all: $(NAME)
 
@@ -68,25 +92,30 @@ $(LSDL2): | $(LSDL2_DIR)
 	make install
 
 $(LFT):
-	$(MAKE) -j10 -C libft
+	$(MAKE) -j10 -C $(LFT_DIR)
 
-$(NAME): $(LFT) $(LSDL2) $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) $(LGL) -L $(LFT_DIR) -lft -L $(DEPS_DIR)/lib -l$(SDL2) -o $@
+$(NAME): $(LFT) $(LSDL2) $(OBJ)
+	$(CC) $(CFLAGS) $(OBJ) $(LGL) -L $(LFT_DIR) -lft -L $(DEPS_DIR)/lib -l$(SDL2) -o $@
 
-$(OBJ_DIR)/%.o: $(SRCS_DIR)/%.c $(INC_DIR)/$(HEADERS) | $(OBJ_DIR)
-	$(CC) $(CFLAGS) -I $(INC_DIR) -I $(LFT_DIR)/$(INC_DIR) -I $(BUILD_DIR)/$(INC_DIR)/$(SDL2) -I /usr/include/GL -c -o $@ $<
+$(OBJ_DIR)/%.o: $(addprefix $(SRC_DIR)/, %.c) $(addprefix $(INC_DIR)/, $(HEADERS)) | $(_OBJ_DIR)
+	$(CC) $(CFLAGS) -I $(LGL_INC) -I $(INC_DIR) -I $(LFT_INC) -I $(LSDL2_INC) -c -o $@ $<
 
 $(DIRS):
 	mkdir -p $@
 
+info:
+	@echo "OBJ_DIR: $(OBJ_DIR)"
+	@echo "SRC_DIR: $(SRC_DIR)"
+	@echo "SRC: $(SRC)"
+
 clean:
-	$(MAKE) -C libft clean
-	/bin/rm -rf $(OBJS)
+	$(MAKE) -C $(LFT_DIR) clean
+	/bin/rm -rf $(_OBJ_DIR)
 
 fclean: clean
-	$(MAKE) -C libft fclean
+	$(MAKE) -C $(LFT_DIR) fclean
 	/bin/rm -f $(NAME)
-	/bin/rm -f $(DIRS)
+	/bin/rm -rf $(DIRS)
 
 re: fclean all
 
