@@ -6,7 +6,7 @@
 #    By: wta <wta@student.42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/07/28 20:09:26 by wta               #+#    #+#              #
-#    Updated: 2019/10/23 18:41:28 by wta              ###   ########.fr        #
+#    Updated: 2019/10/24 18:37:43 by wta              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,9 +38,11 @@ LFT = $(LFT_DIR)/libft.a
 LFT_INC = $(LFT_DIR)/$(INC_DIR)
 
 OBJ_DIR = obj
-_OBJ_DIR =				\
-	$(OBJ_DIR)			\
-	$(OBJ_DIR)/error	\
+_OBJ_DIR =						\
+	$(OBJ_DIR)					\
+	$(OBJ_DIR)/entities			\
+	$(OBJ_DIR)/entities/shader	\
+	$(OBJ_DIR)/error			\
 	$(OBJ_DIR)/sdl
 
 DEPS_DIR = $(LIB_DIR)/dep
@@ -73,11 +75,12 @@ HEADERS =			\
 error.h				\
 scop.h
 
-SRC =				\
-error/error.c		\
-sdl/event.c			\
-sdl/init.c			\
-sdl/quit.c			\
+SRC =							\
+entities/shader/shader.c		\
+error/error.c					\
+sdl/event.c						\
+sdl/init.c						\
+sdl/quit.c						\
 main.c
 
 OBJ = $(addprefix $(OBJ_DIR)/, $(SRC:.c=.o))
