@@ -6,7 +6,7 @@
 #    By: wta <wta@student.42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/07/28 20:09:26 by wta               #+#    #+#              #
-#    Updated: 2019/11/06 16:49:06 by wta              ###   ########.fr        #
+#    Updated: 2019/11/06 16:49:23 by wta              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ CC = cc -O2
 UNAME_S := $(shell uname -s)
 
 ifeq ($(UNAME_S), Linux)
-	LGL := -lglut -lGLU -lGL -lm
+	LGL := -lGL -lm
 	LGL_INC := /usr/include/GLES3
 else ifeq ($(UNAME_S), Darwin)
 	LGL := -framework OpenGL -framework AppKit
@@ -112,7 +112,7 @@ $(DIRS):
 	mkdir -p $@
 
 tga_test:
-	gcc -I include -I lib/libft/include -L lib/libft -lft src/tga_loader/*.c test/test_tga.c -o test_tga
+	gcc -I include -I lib/libft/include src/tga_loader/*.c test/test_tga.c -o test_tga -L lib/libft -lft
 	./test_tga
 
 info:
