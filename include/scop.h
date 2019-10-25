@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   scop.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wta <wta@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: william <william@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/21 15:42:40 by wta               #+#    #+#             */
-/*   Updated: 2019/10/23 18:43:36 by wta              ###   ########.fr       */
+/*   Updated: 2019/10/25 20:21:11 by william          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,7 @@
 # if defined(__APPLE__)
 # include <OpenGL/gl3.h>
 # else
-# include <GL/gl.h>
-# include <GL/glu.h>
+# include <GLES3/gl3.h>
 # endif
 
 # include "SDL.h"
