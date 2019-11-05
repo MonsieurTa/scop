@@ -6,7 +6,7 @@
 #    By: wta <wta@student.42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/07/28 20:09:26 by wta               #+#    #+#              #
-#    Updated: 2019/11/06 16:49:23 by wta              ###   ########.fr        #
+#    Updated: 2019/11/06 16:49:35 by wta              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -65,10 +65,10 @@ DIRS =				\
 	$(LSDL2_DIR)
 
 SDL_OPTION =							\
-	-q									\
-	--prefix=$(DEPS_PATH)				\
-	--exec-prefix=$(DEPS_PATH)			\
-	--bindir=$(BUILD_PATH)/bin			\
+	-q																	\
+	--prefix=$(DEPS_PATH)								\
+	--exec-prefix=$(DEPS_PATH)					\
+	--bindir=$(BUILD_PATH)/bin					\
 	--includedir=$(BUILD_PATH)/include	\
 	--datarootdir=$(BUILD_PATH)/data
 
@@ -80,11 +80,12 @@ SRC =							\
 entities/shader/core.c			\
 entities/shader/setters.c		\
 entities/shader/shader.c		\
-error/error.c					\
-sdl/event.c						\
-sdl/init.c						\
-sdl/quit.c						\
-tga_loader/read.c				\
+error/error.c								\
+sdl/event.c									\
+sdl/init.c									\
+sdl/quit.c									\
+tga_loader/data.c						\
+tga_loader/getters.c				\
 tga_loader/tga_loader.c			\
 main.c
 
