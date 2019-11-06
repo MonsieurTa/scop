@@ -6,7 +6,7 @@
 #    By: wta <wta@student.42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/07/28 20:09:26 by wta               #+#    #+#              #
-#    Updated: 2019/11/06 16:49:35 by wta              ###   ########.fr        #
+#    Updated: 2019/11/06 16:49:51 by wta              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -87,6 +87,8 @@ sdl/quit.c									\
 tga_loader/data.c						\
 tga_loader/getters.c				\
 tga_loader/tga_loader.c			\
+tga_loader/tga_read.c				\
+tga_loader/utils.c			\
 main.c
 
 OBJ = $(addprefix $(OBJ_DIR)/, $(SRC:.c=.o))
