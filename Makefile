@@ -6,7 +6,7 @@
 #    By: wta <wta@student.42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/07/28 20:09:26 by wta               #+#    #+#              #
-#    Updated: 2019/11/06 16:42:40 by wta              ###   ########.fr        #
+#    Updated: 2019/11/06 16:49:06 by wta              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,7 +43,8 @@ _OBJ_DIR =						\
 	$(OBJ_DIR)/entities			\
 	$(OBJ_DIR)/entities/shader	\
 	$(OBJ_DIR)/error			\
-	$(OBJ_DIR)/sdl
+	$(OBJ_DIR)/sdl				\
+	$(OBJ_DIR)/tga_loader
 
 DEPS_DIR = $(LIB_DIR)/dep
 BUILD_DIR = $(LIB_DIR)/build
@@ -79,15 +80,12 @@ SRC =							\
 entities/shader/core.c			\
 entities/shader/setters.c		\
 entities/shader/shader.c		\
-error/error.c								\
-sdl/event.c									\
-sdl/init.c									\
-sdl/quit.c									\
-tga_loader/data.c						\
-tga_loader/getters.c				\
-tga_loader/tga_error.c			\
+error/error.c					\
+sdl/event.c						\
+sdl/init.c						\
+sdl/quit.c						\
+tga_loader/read.c				\
 tga_loader/tga_loader.c			\
-tga_loader/utils.c			\
 main.c
 
 OBJ = $(addprefix $(OBJ_DIR)/, $(SRC:.c=.o))
@@ -112,6 +110,10 @@ $(OBJ_DIR)/%.o: $(addprefix $(SRC_DIR)/, %.c) $(addprefix $(INC_DIR)/, $(HEADERS
 
 $(DIRS):
 	mkdir -p $@
+
+tga_test:
+	gcc -I include -I lib/libft/include -L lib/libft -lft src/tga_loader/*.c test/test_tga.c -o test_tga
+	./test_tga
 
 info:
 	@echo "OBJ_DIR: $(OBJ_DIR)"

@@ -1,33 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   quit.c                                             :+:      :+:    :+:   */
+/*   setters.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wta <wta@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/23 13:02:50 by wta               #+#    #+#             */
-/*   Updated: 2019/10/25 10:41:43 by wta              ###   ########.fr       */
+/*   Created: 2019/10/25 11:08:34 by wta               #+#    #+#             */
+/*   Updated: 2019/10/25 11:34:57 by wta              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include "scop.h"
+#include "shader.h"
 
-/*
-**	clean exit
-**	SDL_GL_DeleteContext: Delete SDL OpenGL context
-**	SDL_DestroyWindow
-*/
-
-void	sdl_ctx_destroy(t_sdl_ctx *ctx)
+void	set_int(t_shader *ctx, GLchar *name, GLint value)
 {
-	SDL_GL_DeleteContext(ctx->gl_ctx);
-	SDL_DestroyWindow(ctx->window);
+	glUniform1i(glGetUniformLocation(ctx->id, name), value);
 }
 
-void	sdl_ctx_quit(void)
+void	set_float(t_shader *ctx, GLchar *name, GLfloat value)
 {
-	ft_putstr("Quiting SDL.\n");
-	SDL_Quit();
-	ft_putstr("Quiting...\n");
+	glUniform1f(glGetUniformLocation(ctx->id, name), value);
+}
+
+void	set_3fv(t_shader *ctx, GLchar *name, GLfloat *value)
+{
+	glUniform3fv(glGetUniformLocation(ctx->id, name), 1, value);
 }

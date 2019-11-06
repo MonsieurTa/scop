@@ -16,11 +16,7 @@ int main()
 	printf("alpha bits: %d\n", ALPHA_BITS(loader.header.descriptor));
 	printf("xO: %d\n", loader.header.x_origin);
 	printf("yO: %d\n", loader.header.y_origin);
-	printf("map color bpp: %d\n", loader.header.color_map_spec.color_map_entry_size);
-	printf("map len: %d\n", loader.header.color_map_spec.color_map_len);
-	printf("index: %d\n", loader.header.color_map_spec.first_entry_index);
-
-	printf("sizeof tga header: %d\n", sizeof(t_tga_header));
-	printf("file size: %d\n", loader.file.file_stat.st_size);
-	printf("data size: %d\n", loader.data_size);
+	printf("map color bpp: %d\n", loader.header.cm_entry_size);
+	printf("map len: %d\n", loader.header.cm_len);
+	printf("index: %d\n", loader.header.cm_index);
 }

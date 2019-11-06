@@ -6,7 +6,7 @@
 /*   By: wta <wta@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/21 15:42:10 by wta               #+#    #+#             */
-/*   Updated: 2019/10/24 18:50:51 by wta              ###   ########.fr       */
+/*   Updated: 2019/10/25 17:10:50 by wta              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ int	main(void)
 	uint32_t	VAO[2];
 	// uint32_t	EBO;
 	t_shader	shader_ctx;
-
 
 	ft_bzero(&env, sizeof(t_env));
 	if (sdl_ctx_init(&env.sdl_ctx) == -1)
@@ -98,13 +97,14 @@ int	main(void)
 	glBindVertexArray(0);
 
 	// glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-
+	GLfloat	offset[3] = {0.0f, 0.0f, 0.0f};
 	while (1)
 	{
 		if (!event_handler(&env))
 			break ;
 		glClear(GL_COLOR_BUFFER_BIT);
 		glUseProgram(shader_ctx.id);
+		shader_ctx.set_3fv(&shader_ctx, "offset", offset);
 		glBindVertexArray(VAO[0]);
 		glDrawArrays(GL_TRIANGLES, 0, 3);
 		glBindVertexArray(VAO[1]);
