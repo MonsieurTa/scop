@@ -6,7 +6,7 @@
 #    By: wta <wta@student.42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/07/28 20:09:26 by wta               #+#    #+#              #
-#    Updated: 2019/10/24 18:37:43 by wta              ###   ########.fr        #
+#    Updated: 2019/11/06 16:42:40 by wta              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ UNAME_S := $(shell uname -s)
 
 ifeq ($(UNAME_S), Linux)
 	LGL := -lglut -lGLU -lGL -lm
-	LGL_INC := /usr/include/GL
+	LGL_INC := /usr/include/GLES3
 else ifeq ($(UNAME_S), Darwin)
 	LGL := -framework OpenGL -framework AppKit
 	# LGL_INC := /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk/System/Library/Frameworks/OpenGL.framework/Headers
@@ -76,11 +76,18 @@ error.h				\
 scop.h
 
 SRC =							\
+entities/shader/core.c			\
+entities/shader/setters.c		\
 entities/shader/shader.c		\
-error/error.c					\
-sdl/event.c						\
-sdl/init.c						\
-sdl/quit.c						\
+error/error.c								\
+sdl/event.c									\
+sdl/init.c									\
+sdl/quit.c									\
+tga_loader/data.c						\
+tga_loader/getters.c				\
+tga_loader/tga_error.c			\
+tga_loader/tga_loader.c			\
+tga_loader/utils.c			\
 main.c
 
 OBJ = $(addprefix $(OBJ_DIR)/, $(SRC:.c=.o))
