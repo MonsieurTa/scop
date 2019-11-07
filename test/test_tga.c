@@ -1,3 +1,4 @@
+#include "ft_file.h"
 #include "tga_loader.h"
 #include "stdio.h"
 
@@ -23,17 +24,20 @@ void	display_test(t_tga_loader *ctx)
 	printf("========== %s ==========\n\n", ctx->file.filepath);
 }
 
+void	test(t_tga_loader *ctx, char *path)
+{
+	ctx->load(ctx, path, store_data);
+	display_test(ctx);
+	ctx->destroy(ctx);
+}
+
 int main()
 {
 	t_tga_loader	loader;
 
 	loader = new_tga_loader();
-	loader.load(&loader, "resources/textures/img1.tga");
-	display_test(&loader);
-	loader.destroy(&loader);
-
-	loader.load(&loader, "resources/textures/awesomeface.tga");
-	display_test(&loader);
-	loader.destroy(&loader);
-
+	test(&loader, "resources/textures/img1.tga");
+	test(&loader, "resources/textures/awesomeface.tga");
+	test(&loader, "resources/textures/alpha_test.tga");
+	test(&loader, "resources/textures/alpha_test.tga");
 }

@@ -6,7 +6,7 @@
 /*   By: wta <wta@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/25 13:05:04 by wta               #+#    #+#             */
-/*   Updated: 2019/11/06 18:36:40 by wta              ###   ########.fr       */
+/*   Updated: 2019/11/07 18:16:38 by wta              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,8 @@ static void		get_texel_size(t_tga_loader *ctx)
 	}
 }
 
-static int		load(t_tga_loader *ctx, char *img_path)
+static int		load(t_tga_loader *ctx, char *img_path,
+	int (*store_data)(t_file *, const char *))
 {
 	store_data(&ctx->file, img_path);
 	ft_printf("TGA(%s): Mapped into memory\n", ctx->file.filepath);
@@ -55,11 +56,12 @@ static int		load(t_tga_loader *ctx, char *img_path)
 		ctx->data = malloc(sizeof(uint8_t)
 			* ctx->getWidth(ctx) * ctx->getHeight(ctx) * ctx->texel_size);
 		ctx->read(ctx);
+		ft_printf("TGA(%s): Loaded\n", ctx->file.filepath);
 		munmap(ctx->file.content, ctx->file.file_stat.st_size);
 		ft_printf("TGA(%s): Unmapped from memory\n", ctx->file.filepath);
-		ft_printf("TGA(%s): Loaded\n", ctx->file.filepath);
+		return (0);
 	}
-	return (0);
+	return (-1);
 }
 
 static void		destroy(t_tga_loader *ctx)

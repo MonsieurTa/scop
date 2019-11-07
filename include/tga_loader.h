@@ -6,7 +6,7 @@
 /*   By: wta <wta@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/25 13:05:28 by wta               #+#    #+#             */
-/*   Updated: 2019/11/06 18:07:03 by wta              ###   ########.fr       */
+/*   Updated: 2019/11/07 15:30:14 by wta              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@
 
 # define ERR_NO_DATA	0x1
 
-# include "scop.h"
 # include <stdint.h>
+# include "ft_file.h"
 
 # pragma pack(push, 1)
 
@@ -53,7 +53,8 @@ typedef struct	s_tga_loader
 	void					*data;
 
 	void					(*read)(struct s_tga_loader *);
-	int						(*load)(struct s_tga_loader *, char *);
+	int						(*load)(struct s_tga_loader *, char *,
+		int (*store_data)(t_file *, const char *));
 	void					(*destroy)(struct s_tga_loader *);
 	int32_t				(*getWidth)(struct s_tga_loader *);
 	int32_t				(*getHeight)(struct s_tga_loader *);
