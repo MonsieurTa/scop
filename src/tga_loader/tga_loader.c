@@ -6,7 +6,7 @@
 /*   By: wta <wta@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/25 13:05:04 by wta               #+#    #+#             */
-/*   Updated: 2019/11/06 15:56:33 by wta              ###   ########.fr       */
+/*   Updated: 2019/11/06 18:36:40 by wta              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@
 #include "libft.h"
 #include "ft_printf.h"
 #include "tga_loader.h"
-
-#include <stdio.h>
 
 static void		get_texel_size(t_tga_loader *ctx)
 {
@@ -44,10 +42,11 @@ static void		get_texel_size(t_tga_loader *ctx)
 static int		load(t_tga_loader *ctx, char *img_path)
 {
 	store_data(&ctx->file, img_path);
+	ft_printf("TGA(%s): Mapped into memory\n", ctx->file.filepath);
 	ft_memcpy(&ctx->header, ctx->file.content, sizeof(t_tga_header));
 	if (is_supported_tga(&ctx->header) != -1)
 	{
-		ft_printf("TGA: Loading %s\n", ctx->file.filepath);
+		ft_printf("TGA(%s): Loading...\n", ctx->file.filepath);
 		ctx->cm_size = ctx->header.cm_len * (ctx->header.cm_entry_size >> 3);
 		ctx->img_size = ctx->getWidth(ctx) * ctx->getHeight(ctx);
 		assign_read(ctx);
@@ -56,15 +55,17 @@ static int		load(t_tga_loader *ctx, char *img_path)
 		ctx->data = malloc(sizeof(uint8_t)
 			* ctx->getWidth(ctx) * ctx->getHeight(ctx) * ctx->texel_size);
 		ctx->read(ctx);
-		// ctx->data = ctx->file.content;
-		ft_printf("TGA: Image loaded\n");
+		munmap(ctx->file.content, ctx->file.file_stat.st_size);
+		ft_printf("TGA(%s): Unmapped from memory\n", ctx->file.filepath);
+		ft_printf("TGA(%s): Loaded\n", ctx->file.filepath);
 	}
 	return (0);
 }
 
 static void		destroy(t_tga_loader *ctx)
 {
-	munmap(ctx->file.content, ctx->file.file_stat.st_size);
+	ft_printf("TGA(%s): Data freed from memory\n", ctx->file.filepath);
+	ft_memdel(&ctx->data);
 }
 
 t_tga_loader	new_tga_loader(void)
