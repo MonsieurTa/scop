@@ -6,7 +6,7 @@
 #    By: wta <wta@student.42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/07/28 20:09:26 by wta               #+#    #+#              #
-#    Updated: 2019/11/07 14:25:46 by wta              ###   ########.fr        #
+#    Updated: 2019/11/07 17:19:42 by wta              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,6 +43,7 @@ _OBJ_DIR =	\
 	$(OBJ_DIR)/entities					\
 	$(OBJ_DIR)/entities/shader	\
 	$(OBJ_DIR)/error						\
+	$(OBJ_DIR)/gl_tex						\
 	$(OBJ_DIR)/sdl							\
 	$(OBJ_DIR)/tga_loader				\
 	$(OBJ_DIR)/utils						\
@@ -82,6 +83,9 @@ entities/shader/core.c			\
 entities/shader/setters.c		\
 entities/shader/shader.c		\
 error/error.c								\
+gl_tex/gl.c									\
+gl_tex/core.c								\
+gl_tex/getters.c						\
 sdl/event.c									\
 sdl/init.c									\
 sdl/quit.c									\
