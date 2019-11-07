@@ -6,7 +6,7 @@
 #    By: wta <wta@student.42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/07/28 20:09:26 by wta               #+#    #+#              #
-#    Updated: 2019/11/06 17:19:27 by wta              ###   ########.fr        #
+#    Updated: 2019/11/07 14:25:46 by wta              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,13 +38,14 @@ LFT = $(LFT_DIR)/libft.a
 LFT_INC = $(LFT_DIR)/$(INC_DIR)
 
 OBJ_DIR = obj
-_OBJ_DIR =						\
-	$(OBJ_DIR)					\
-	$(OBJ_DIR)/entities			\
+_OBJ_DIR =	\
+	$(OBJ_DIR)									\
+	$(OBJ_DIR)/entities					\
 	$(OBJ_DIR)/entities/shader	\
-	$(OBJ_DIR)/error			\
-	$(OBJ_DIR)/sdl				\
-	$(OBJ_DIR)/tga_loader
+	$(OBJ_DIR)/error						\
+	$(OBJ_DIR)/sdl							\
+	$(OBJ_DIR)/tga_loader				\
+	$(OBJ_DIR)/utils						\
 
 DEPS_DIR = $(LIB_DIR)/dep
 BUILD_DIR = $(LIB_DIR)/build
@@ -84,12 +85,12 @@ error/error.c								\
 sdl/event.c									\
 sdl/init.c									\
 sdl/quit.c									\
-tga_loader/data.c						\
 tga_loader/getters.c				\
 tga_loader/tga_error.c			\
 tga_loader/tga_loader.c			\
 tga_loader/tga_read.c				\
-tga_loader/utils.c			\
+tga_loader/utils.c					\
+utils/data.c								\
 main.c
 
 OBJ = $(addprefix $(OBJ_DIR)/, $(SRC:.c=.o))
@@ -116,7 +117,7 @@ $(DIRS):
 	mkdir -p $@
 
 tga_test:
-	gcc -I include -I lib/libft/include src/tga_loader/*.c test/test_tga.c -o test_tga -L lib/libft -lft
+	gcc -I $(LSDL2_INC) -I include -I lib/libft/include src/tga_loader/*.c src/utils/data.c test/test_tga.c -o test_tga -L lib/libft -lft
 	./test_tga
 
 info:

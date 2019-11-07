@@ -6,7 +6,7 @@
 /*   By: wta <wta@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/25 13:05:28 by wta               #+#    #+#             */
-/*   Updated: 2019/11/06 16:14:06 by wta              ###   ########.fr       */
+/*   Updated: 2019/11/06 18:07:03 by wta              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,25 +14,13 @@
 # define TGA_LOADER_H
 
 # define ALPHA_BITS(x) ((x) & 0xF)
-# define MAX(a,b) (a < b ? b : a)
-# define MIN(a,b) (a < b ? a : b)
-
-# define MAX_FILEPATH	2048
 
 # define ERR_NO_DATA	0x1
 
-# include <sys/stat.h>
+# include "scop.h"
 # include <stdint.h>
 
 # pragma pack(push, 1)
-
-typedef struct	s_file
-{
-	int					fd;
-	char				filepath[MAX_FILEPATH];
-	struct stat	file_stat;
-	void				*content;
-}				t_file;
 
 typedef struct	s_tga_header
 {
@@ -74,8 +62,6 @@ typedef struct	s_tga_loader
 # pragma pack(pop)
 
 t_tga_loader	new_tga_loader(void);
-
-int						store_data(t_file *data, const char *filepath);
 
 int32_t				getWidth(t_tga_loader *ctx);
 int32_t				getHeight(t_tga_loader *ctx);

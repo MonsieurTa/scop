@@ -6,7 +6,7 @@
 /*   By: wta <wta@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/21 15:42:10 by wta               #+#    #+#             */
-/*   Updated: 2019/11/06 16:29:08 by wta              ###   ########.fr       */
+/*   Updated: 2019/11/06 18:43:02 by wta              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,6 @@ int	main(void)
 	shader_ctx.create(&shader_ctx, GL_VERTEX_SHADER, "src/shaders/tex_vertex.vs");
 	shader_ctx.create(&shader_ctx, GL_FRAGMENT_SHADER, "src/shaders/tex_fragment.fs");
 	shader_ctx.attach_shaders(&shader_ctx);
-
-	glBindAttribLocation(shader_ctx.id, 0, "v_pos");
-	glBindAttribLocation(shader_ctx.id, 1, "v_colour");
-
 	shader_ctx.link_program(&shader_ctx);
 
 	glGenVertexArrays(1, &VAO);
@@ -95,6 +91,7 @@ int	main(void)
 				0, GL_RGB, GL_UNSIGNED_BYTE,
 				tga_loader.data);
 			glGenerateMipmap(GL_TEXTURE_2D);
+			tga_loader.destroy(&tga_loader);
 	}
 	else
 		ft_printf("OpenGL: Failed to load texture\n");
