@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "SDL.h"
+#include "ft_printf.h"
 #include "error.h"
 #include "scop.h"
 
@@ -35,6 +36,9 @@ int	sdl_ctx_init(t_sdl_ctx *ctx)
 		return (throw_error(ERR_SDL_CREAT_WIN));
 	ctx->gl_ctx = SDL_GL_CreateContext(ctx->window);
 	if (!ctx->gl_ctx)
+	{
+		ft_printf("sdl: %s\n", SDL_GetError());
 		return (throw_error(ERR_SDL_GL_CTX));
+	}
 	return (0);
 }
