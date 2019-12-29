@@ -23,7 +23,7 @@ typedef struct	s_shader
 	GLuint	id;
 	GLuint	shader_ids[MAX_SHADER];
 	GLuint	active;
-	void	(*create)(struct s_shader *, const GLenum, const GLchar *);
+	int		(*create)(struct s_shader *, const GLenum, const GLchar *);
 	void	(*attach_shaders)(struct s_shader *);
 	void	(*link_program)(struct s_shader *);
 	void	(*set_int)(struct s_shader *, GLchar *, GLint);
@@ -41,10 +41,10 @@ t_shader	new_shader(void);
 **	shader's methods
 */
 
+int			create_shader(t_shader *ctx, const GLenum type, const GLchar *src);
 void		set_int(t_shader *ctx, GLchar *name, GLint value);
 void		set_float(t_shader *ctx, GLchar *name, GLfloat value);
 void		set_3fv(t_shader *ctx, GLchar *name, GLfloat value[3]);
-void		create_shader(t_shader *ctx, const GLenum type, const GLchar *src);
 void		attach_shaders(t_shader *ctx);
 void		link_program(t_shader *ctx);
 

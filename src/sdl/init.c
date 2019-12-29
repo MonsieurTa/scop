@@ -23,8 +23,10 @@
 
 int	sdl_ctx_init(t_sdl_ctx *ctx)
 {
-	if (SDL_Init(SDL_INIT_VIDEO) < 0)
+	if (SDL_Init(SDL_INIT_VIDEO) < 0) {
+		ft_printf("%s\n", SDL_GetError());
 		return (throw_error(ERR_SDL_VIDEO));
+	}
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK,
 						SDL_GL_CONTEXT_PROFILE_CORE);
 	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);

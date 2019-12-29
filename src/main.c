@@ -34,6 +34,7 @@ int	main(void)
 	uint32_t	VBO;
 	uint32_t	VAO;
 	uint32_t	EBO;
+	int				shader_res;
 	t_shader	shader;
 
 	ft_bzero(&env, sizeof(t_env));
@@ -45,8 +46,12 @@ int	main(void)
 	ft_printf("OpenGL: version: %s\n", glGetString(GL_VERSION));
 
 	shader = new_shader();
-	shader.create(&shader, GL_VERTEX_SHADER, "src/shaders/tex_vertex.vs");
-	shader.create(&shader, GL_FRAGMENT_SHADER, "src/shaders/tex_fragment.fs");
+	shader_res = shader.create(&shader, GL_VERTEX_SHADER, "src/shaders/tex_vertex.glsl");
+	if (shader_res == -1)
+		return (-1);
+	shader_res = shader.create(&shader, GL_FRAGMENT_SHADER, "src/shaders/tex_fragment.glsl");
+	if (shader_res == -1)
+		return (-1);
 	shader.attach_shaders(&shader);
 	shader.link_program(&shader);
 
